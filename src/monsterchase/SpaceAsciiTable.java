@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    Gives corresponding ASCII characters for space types in order to render the map in text
  */
 package monsterchase;
 

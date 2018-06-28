@@ -29,10 +29,12 @@ public class Space {
         return coordinates;
     }
     
+    //returns the type
     public SpaceType getType() {
         return this.type;
     }
     
+    //returns the type as an ASCII character
     public String getTypeRender(){
         return lookup.get(this.type);
     }
