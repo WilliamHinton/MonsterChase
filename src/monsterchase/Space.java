@@ -29,6 +29,7 @@ public class Space {
         return coordinates;
     }
     
+    
     //returns the type
     public SpaceType getType() {
         return this.type;
