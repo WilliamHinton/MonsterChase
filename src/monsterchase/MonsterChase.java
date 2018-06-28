@@ -5,17 +5,22 @@
  */
 package monsterchase;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  *
  * @author Will
  */
+
 public class MonsterChase {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.FileNotFoundException
      */
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         Map testMap = new Map(100,100);
         
         testMap.printMap();

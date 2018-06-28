@@ -5,12 +5,21 @@
  */
 package monsterchase;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.util.ArrayList;
 
 /**
  *
  * @author Will
  */
+
 public class Map {
     ArrayList<ArrayList<Space>> map;
     private final int height;
@@ -28,7 +37,7 @@ public class Map {
         
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                thisSpace = new Space(i, j, "open");
+                thisSpace = new Space(i, j, SpaceType.OPEN);
                 mapRow.add(thisSpace);
             }
             map.add(mapRow);
@@ -42,12 +51,17 @@ public class Map {
         return spaceToGet;
     }
     
-    public void printMap(){
-        for(int y = 0; y < this.height; y++){
-            for(int x = 0; x < this.width; x++){
-                System.out.print(getSpaceAtCoordinates(x,y).getType());
+    public void printMap() throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        //File mapFile = new File(Util.MAP_LOCATION + "myMap.txt");
+        try(Writer mapWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(Util.MAP_LOCATION + "myMap.txt")), "UTF-8"))){
+            for(int y = 0; y < this.height; y++){
+                for(int x = 0; x < this.width; x++){
+                    mapWriter.write(getSpaceAtCoordinates(x,y).getTypeRender());
+                }
+                mapWriter.write("\n");
             }
-            System.out.print("\n");
+            
+            mapWriter.close();
         }
     }
 }

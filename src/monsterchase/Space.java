@@ -12,9 +12,10 @@ package monsterchase;
 public class Space {
     private int x;
     private int y;
-    private String type;
+    private SpaceType type;
+    private SpaceAsciiTable lookup = new SpaceAsciiTable();
     
-    public Space( int x, int y, String type){
+    public Space( int x, int y, SpaceType type){
         this.x = x;
         this.y = y;
         this.type = type;
@@ -28,7 +29,11 @@ public class Space {
         return coordinates;
     }
     
-    public String getType() {
+    public SpaceType getType() {
         return this.type;
+    }
+    
+    public String getTypeRender(){
+        return lookup.get(this.type);
     }
 }
