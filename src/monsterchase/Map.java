@@ -28,25 +28,13 @@ public class Map {
     Map (int height, int width){
         this.height = height;
         this.width = width;
-        Space thisSpace;
+        this.map = new ArrayList<>();
+        MapGenerator generator = new MapGenerator(height,width,map);
         
-        map = renderMap(height, width);
-//        map = new ArrayList<>();
-//        ArrayList<Space> mapRow = new ArrayList<>();
-//        
-//        for(int i = 0; i < height; i++){
-//            for(int j = 0; j < width; j++){
-//                thisSpace = new Space(i, j, SpaceType.OPEN);
-//                mapRow.add(thisSpace);
-//            }
-//            map.add(mapRow);
-//        }
+        map = generator.newMap();
     }
     
-    private renderMap(int x, int y){
-        //IMPLEMENT
-    }
-    
+
     private Space getSpaceAtCoordinates(int x, int y){
         ArrayList<Space> row = map.get(y);
         Space spaceToGet = row.get(x);
