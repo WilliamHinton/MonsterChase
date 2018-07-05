@@ -21,7 +21,12 @@ public class MonsterChase {
      */
     
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        Map testMap = new Map(80,80,6);
+        int height = 45;
+        int width = 160;
+        
+        //seedValue determines how many times the grid filler will run. Higher means more fill.
+        int seedValue = 10;
+        Map testMap = new Map(width, height,seedValue);
         
         testMap.printMap();
     }

@@ -21,10 +21,8 @@ public class Space {
         this.type = type;
     }
     
-    public int[] getCoordinates(){
-        int[] coordinates = new int[2];
-        coordinates[0] = this.x;
-        coordinates[1] = this.y;
+    public Pair getCoordinates(){
+        Pair coordinates = new Pair(this.x, this.y);
         
         return coordinates;
     }
