@@ -24,12 +24,14 @@ public class Map {
     ArrayList<ArrayList<Space>> map;
     private final int height;
     private final int width;
+    private final int seedCount;
     
-    Map (int height, int width){
+    Map (int height, int width, int seedCount){
         this.height = height;
         this.width = width;
+        this.seedCount = seedCount;
         this.map = new ArrayList<>();
-        MapGenerator generator = new MapGenerator(height,width,map);
+        MapGenerator generator = new MapGenerator(height,width,map,seedCount);
         
         map = generator.newMap();
     }

@@ -12,10 +12,11 @@ import java.util.HashMap;
 public class SpaceAsciiTable extends HashMap<SpaceType, String>{
     public SpaceAsciiTable(){
         this.put(SpaceType.OPEN, ".");
+        this.put(SpaceType.CLOSED, "■");
         this.put(SpaceType.GOAL, "!");
         this.put(SpaceType.PLAYER, "+");
         this.put(SpaceType.ZOMBIE, "x");
-        this.put(SpaceType.CLOSED, "#");
+        this.put(SpaceType.ERROR, "#");
     }
     
 }

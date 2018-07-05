@@ -21,7 +21,7 @@ public class MonsterChase {
      */
     
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        Map testMap = new Map(100,100);
+        Map testMap = new Map(80,80,6);
         
         testMap.printMap();
     }

@@ -12,5 +12,6 @@ public enum SpaceType {
     CLOSED,
     GOAL,
     PLAYER,
-    ZOMBIE
+    ZOMBIE,
+    ERROR
 }
