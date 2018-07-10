@@ -47,8 +47,8 @@ public class Map {
     //prints the map to a text file
     public void printMap() throws FileNotFoundException, UnsupportedEncodingException, IOException{
         try(Writer mapWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(Util.MAP_LOCATION + "myMap.txt")), "UTF-8"))){
-            for(int y = 0; y < this.height; y++){
-                for(int x = 0; x < this.width; x++){
+            for(int x = 0; x < this.width; x++){
+                for(int y = 0; y < this.height; y++){
                     mapWriter.write(getSpaceAtCoordinates(x,y).getTypeRender());
                 }
                 mapWriter.write("\n");

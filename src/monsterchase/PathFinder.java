@@ -33,6 +33,9 @@ public class PathFinder {
         while(!queue.isEmpty()){
             Node current = queue.remove(0);
             if(queue.size() > 200000){
+                for (int[] visitedMap1 : visitedMap) {
+                    System.out.println(Arrays.toString(visitedMap1));
+                }
                 break;
             }
             if(visitedMap[current.x][current.y] == 2){

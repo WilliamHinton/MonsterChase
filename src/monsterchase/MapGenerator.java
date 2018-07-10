@@ -37,7 +37,7 @@ public class MapGenerator {
         Space space = new Space(-1,-1,SpaceType.OPEN);
         Pair goal;
         
-        for(int i = 0; i <= seedCount; i++){
+        for(int i = 0; i < seedCount; i++){
             cellSpreadingPower = (height * width) / 8;
             generationCoordinates = new Pair(getStart(width),getStart(height));
             while(cellSpreadingPower > 0){
@@ -112,13 +112,21 @@ public class MapGenerator {
     
     private Pair setGoal(int [][] mapArray){
         Pair potentialGoalPoint = new Pair(getStart(width), getStart(height));
-        System.out.println(potentialGoalPoint.getX() + ", " + potentialGoalPoint.getY());
-        PathFinder verifyDoable = new PathFinder(mapArray);
+        //System.out.println(potentialGoalPoint.getX() + ", " + potentialGoalPoint.getY());
+        //PathFinder verifyDoable = new PathFinder(mapArray);
+        PathFinderAStar verifyDoable = new PathFinderAStar(mapArray, potentialGoalPoint, spawnCoordinates);
         
         
-        if(verifyDoable.checkPath(potentialGoalPoint)){
-            return potentialGoalPoint;
+        while(true){
+            System.out.println(potentialGoalPoint.getX() + ", " + potentialGoalPoint.getY());
+            if(verifyDoable.getPath())
+                break;
+            else
+                potentialGoalPoint = new Pair(getStart(width), getStart(height));
         }
+        //if(verifyDoable.getPath()){
+        //    return potentialGoalPoint;
+        //}
         
         return(setGoal(mapArray));
     }

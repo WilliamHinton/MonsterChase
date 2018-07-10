@@ -9,13 +9,30 @@ package monsterchase;
  *
  * @author Will
  */
-public class Node{
+
+//Used in search algorithms
+public class Node implements Comparable<Node>{
     int x;
     int y;
+    int finalCost = 0; //incremented continuously
+    int heuristicCost = 0;
+    Node parent;
+    
     
     Node(int x, int y){
         this.x = x;
         this.y = y;
     }
     
+    @Override
+    public int compareTo(Node o){
+        if((o.heuristicCost + o.finalCost) < (this.heuristicCost + o.finalCost)){
+            return -1;
+        }
+        else if((o.heuristicCost + o.finalCost) < (this.heuristicCost + o.finalCost)){
+            return 1;
+        }
+        else
+            return 0;
+    }
 }
