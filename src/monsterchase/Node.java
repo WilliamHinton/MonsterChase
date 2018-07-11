@@ -24,6 +24,10 @@ public class Node implements Comparable<Node>{
         this.y = y;
     }
     
+    public void printNode(){
+        System.out.println("(" + this.x + ", " + this.y + ")");
+    }
+    
     @Override
     public int compareTo(Node o){
         if((o.heuristicCost + o.finalCost) < (this.heuristicCost + o.finalCost)){

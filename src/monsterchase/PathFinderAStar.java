@@ -19,11 +19,10 @@ public class PathFinderAStar {
     PriorityQueue<Node> open = new PriorityQueue<>();
     //LinkedList<Node> path;
     boolean[][] closed;
-    //Node[][] grid = new Node[map[0].length][map.length];
     Node[][] grid;
     
     
-    public PathFinderAStar(int [][] map, Pair goal, Pair start){
+    public PathFinderAStar(int [][] map, Pair start, Pair goal){
         this.map = deepCopy(map);
         this.goalNode = new Node(goal.getX(),goal.getY());
         this.startNode = new Node(start.getX(),start.getY());
@@ -47,27 +46,31 @@ public class PathFinderAStar {
                 open.add(n);
             }
         }
+        return;
     }
     
     public boolean getPath(){
+        System.out.println(map[0].length + "," + map.length + "-- " + grid[0].length + ", " + grid.length);
         open.add(startNode);
-        Node current, n;
+        Node current;
         int cost = 1;
-        int iterations = 0;
+        for(int y = 0; y < grid.length; y++){
+            for(int x = 0; x < grid[0].length; x++){
+                grid[x][y] = new Node(x, y);
+            }
+        }
+        
+        
         
         while(true){
-            iterations++;
-            System.out.println(iterations);
+            Node n;
             current = open.poll();
             if(current==null)
                 break;
             current.heuristicCost = estimateHeuristic(goalNode, current);
-
-            
-            //System.out.println(closed[0].length + " - " + current.x + "\n" + closed.length + " - " + current.y);
             closed[current.x][current.y] = true;
             
-            if(current.x == goalNode.x && current.y==goalNode.y){
+            if((current.x == goalNode.x) && (current.y==goalNode.y)){
                 return true;
             }
             //left
@@ -91,6 +94,7 @@ public class PathFinderAStar {
                 checkAndUpdateCost(n, current, current.finalCost+cost);
             }
         }
+        System.out.println("wtf");
         return false;
     }
     

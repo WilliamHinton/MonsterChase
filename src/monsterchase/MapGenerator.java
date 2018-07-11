@@ -29,7 +29,7 @@ public class MapGenerator {
     }
     
     public ArrayList<ArrayList<Space>> newMap(){
-        int[][] emptyCellArray = new int [width][height];
+        int[][] emptyCellArray = new int [height][width];
         int cellSpreadingPower;
         spawnCoordinates = new Pair(getStart(width), getStart(height));
         generationCoordinates = new Pair(getStart(width),getStart(height));
@@ -41,17 +41,17 @@ public class MapGenerator {
             cellSpreadingPower = (height * width) / 8;
             generationCoordinates = new Pair(getStart(width),getStart(height));
             while(cellSpreadingPower > 0){
-                emptyCellArray[generationCoordinates.getX()][generationCoordinates.getY()] = 1;
+                emptyCellArray[generationCoordinates.getY()][generationCoordinates.getX()] = 1;
                 generationCoordinates = cellFiller(emptyCellArray, generationCoordinates);
                 cellSpreadingPower--;
             }
         }
         
-        emptyCellArray[spawnCoordinates.getX()][spawnCoordinates.getY()] = 2;
+        emptyCellArray[spawnCoordinates.getY()][spawnCoordinates.getX()] = 2;
         
         goal = setGoal(emptyCellArray);
         
-        emptyCellArray[goal.getX()][goal.getY()] = 3;
+        emptyCellArray[goal.getY()][goal.getX()] = 3;
         
         for(int y = 0; y < height; y ++){
             mapRow = new ArrayList<>();
@@ -114,13 +114,15 @@ public class MapGenerator {
         Pair potentialGoalPoint = new Pair(getStart(width), getStart(height));
         //System.out.println(potentialGoalPoint.getX() + ", " + potentialGoalPoint.getY());
         //PathFinder verifyDoable = new PathFinder(mapArray);
-        PathFinderAStar verifyDoable = new PathFinderAStar(mapArray, potentialGoalPoint, spawnCoordinates);
-        
-        
+        while(potentialGoalPoint.equals(spawnCoordinates)){
+            potentialGoalPoint = new Pair(getStart(width), getStart(height));
+        }
+        System.out.println(mapArray[0].length + "," + width + "-- " + mapArray.length + ", " + height);
         while(true){
-            System.out.println(potentialGoalPoint.getX() + ", " + potentialGoalPoint.getY());
-            if(verifyDoable.getPath())
-                break;
+            PathFinderAStar verifyDoable = new PathFinderAStar(mapArray, spawnCoordinates, potentialGoalPoint);
+            if(verifyDoable.getPath() && spawnCoordinates != potentialGoalPoint){
+                return potentialGoalPoint;
+            }
             else
                 potentialGoalPoint = new Pair(getStart(width), getStart(height));
         }
@@ -128,7 +130,7 @@ public class MapGenerator {
         //    return potentialGoalPoint;
         //}
         
-        return(setGoal(mapArray));
+        //return(setGoal(mapArray));
     }
 }
     

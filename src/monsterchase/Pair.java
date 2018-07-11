@@ -17,6 +17,10 @@ public class Pair {
         this.x = x;
         this.y = y;
     }
+    
+    public void printPair(){
+        System.out.println("(" + this.x + ", " + this.y + ")");
+    }
 
     public int getX() {
         return x;
