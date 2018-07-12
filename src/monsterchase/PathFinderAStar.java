@@ -17,7 +17,6 @@ public class PathFinderAStar {
     Node goalNode;
     Node startNode;
     PriorityQueue<Node> open = new PriorityQueue<>();
-    //LinkedList<Node> path;
     boolean[][] closed;
     Node[][] grid;
     
@@ -32,7 +31,7 @@ public class PathFinderAStar {
     
     //cost for the time-being will remain 1
     void checkAndUpdateCost(Node n, Node current, int cost){
-        if(n == null || closed[n.x][n.y]){
+        if(n == null || closed[n.y][n.x]){
             return;
         }
         
@@ -49,14 +48,15 @@ public class PathFinderAStar {
         return;
     }
     
-    public boolean getPath(){
+    public boolean doesPathExist(){
         System.out.println(map[0].length + "," + map.length + "-- " + grid[0].length + ", " + grid.length);
         open.add(startNode);
         Node current;
         int cost = 1;
         for(int y = 0; y < grid.length; y++){
             for(int x = 0; x < grid[0].length; x++){
-                grid[x][y] = new Node(x, y);
+                if(map[y][x] != 1)
+                    grid[y][x] = new Node(x, y);
             }
         }
         
@@ -68,29 +68,29 @@ public class PathFinderAStar {
             if(current==null)
                 break;
             current.heuristicCost = estimateHeuristic(goalNode, current);
-            closed[current.x][current.y] = true;
+            closed[current.y][current.x] = true;
             
             if((current.x == goalNode.x) && (current.y==goalNode.y)){
                 return true;
             }
             //left
             if(current.x - 1 >= 0){
-                n = grid[current.x-1][current.y];
+                n = grid[current.y][current.x-1];
                 checkAndUpdateCost(n, current, current.finalCost+cost);
             }
             //right
             if(current.x + 1 < grid[0].length){
-                n = grid[current.x + 1][current.y];
+                n = grid[current.y][current.x+1];
                 checkAndUpdateCost(n, current, current.finalCost+cost);
             }
             //up
             if(current.y - 1 >= 0){
-                n = grid[current.x][current.y-1];
+                n = grid[current.y-1][current.x];
                 checkAndUpdateCost(n, current, current.finalCost+cost);
             }
             //down
             if(current.y + 1 < grid.length){
-                n = grid[current.x][current.y+1];
+                n = grid[current.y+1][current.x];
                 checkAndUpdateCost(n, current, current.finalCost+cost);
             }
         }

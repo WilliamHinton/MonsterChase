@@ -17,6 +17,7 @@ public class SpaceAsciiTable extends HashMap<SpaceType, String>{
         this.put(SpaceType.PLAYER, "+");
         this.put(SpaceType.ZOMBIE, "x");
         this.put(SpaceType.ERROR, "#");
+        this.put(SpaceType.PATHTEST, "@");
     }
     
 }

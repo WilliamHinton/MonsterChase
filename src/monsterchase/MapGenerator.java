@@ -32,18 +32,24 @@ public class MapGenerator {
         int[][] emptyCellArray = new int [height][width];
         int cellSpreadingPower;
         spawnCoordinates = new Pair(getStart(width), getStart(height));
-        generationCoordinates = new Pair(getStart(width),getStart(height));
+        generationCoordinates = new Pair(getStart(width), getStart(height));
         ArrayList<Space> mapRow;
         Space space = new Space(-1,-1,SpaceType.OPEN);
         Pair goal;
         
         for(int i = 0; i < seedCount; i++){
             cellSpreadingPower = (height * width) / 8;
-            generationCoordinates = new Pair(getStart(width),getStart(height));
+            generationCoordinates = new Pair(getStart(width), getStart(height));
+            try{
             while(cellSpreadingPower > 0){
                 emptyCellArray[generationCoordinates.getY()][generationCoordinates.getX()] = 1;
                 generationCoordinates = cellFiller(emptyCellArray, generationCoordinates);
                 cellSpreadingPower--;
+            }
+            }
+            catch (ArrayIndexOutOfBoundsException e) {
+                generationCoordinates.printPair();
+                System.out.println("(" + emptyCellArray[0].length + ", " + emptyCellArray.length + ")");
             }
         }
         
@@ -56,19 +62,19 @@ public class MapGenerator {
         for(int y = 0; y < height; y ++){
             mapRow = new ArrayList<>();
             for(int x = 0; x < width; x++){
-                if(emptyCellArray[x][y] == 0){
+                if(emptyCellArray[y][x] == 0){
                     space = new Space(x, y, SpaceType.OPEN);
                 }
                 
-                else if(emptyCellArray[x][y] == 1){
+                else if(emptyCellArray[y][x] == 1){
                     space = new Space(x, y, SpaceType.CLOSED);
                 }
                 
-                else if(emptyCellArray[x][y] == 2){
+                else if(emptyCellArray[y][x] == 2){
                     space = new Space(x, y, SpaceType.PLAYER);
                 }
                 
-                else if(emptyCellArray[x][y] == 3){
+                else if(emptyCellArray[y][x] == 3){
                     space = new Space(x, y, SpaceType.GOAL);
                 }
                 
@@ -112,25 +118,18 @@ public class MapGenerator {
     
     private Pair setGoal(int [][] mapArray){
         Pair potentialGoalPoint = new Pair(getStart(width), getStart(height));
-        //System.out.println(potentialGoalPoint.getX() + ", " + potentialGoalPoint.getY());
-        //PathFinder verifyDoable = new PathFinder(mapArray);
         while(potentialGoalPoint.equals(spawnCoordinates)){
             potentialGoalPoint = new Pair(getStart(width), getStart(height));
         }
-        System.out.println(mapArray[0].length + "," + width + "-- " + mapArray.length + ", " + height);
+        
         while(true){
             PathFinderAStar verifyDoable = new PathFinderAStar(mapArray, spawnCoordinates, potentialGoalPoint);
-            if(verifyDoable.getPath() && spawnCoordinates != potentialGoalPoint){
+            if(verifyDoable.doesPathExist() && spawnCoordinates != potentialGoalPoint){
                 return potentialGoalPoint;
             }
             else
                 potentialGoalPoint = new Pair(getStart(width), getStart(height));
         }
-        //if(verifyDoable.getPath()){
-        //    return potentialGoalPoint;
-        //}
-        
-        //return(setGoal(mapArray));
     }
 }
     
